@@ -30,24 +30,32 @@ let questions = [{
     },
 ];
 
+// let btn = document.getElementById("btn");
+
+// btn.addEventListener("click", function() {
+//     console.log("clicked");
+// });
+
 let app = {
     start: function() {
         this.currentPosition = 0;
-        let alts = document.querySelectorAll(".alternative");
+        this.score = 0;
+        let alts = document.querySelectorAll(`.alternative`);
         alts.forEach((element, index) => {
-            element.addEventListener("click", () => {
+            element.addEventListener(`click`, () => {
                 this.checkAnswer(index);
             });
         });
+        this.updateStats();
 
         this.showQuestion(questions[this.currentPosition]);
     },
     showQuestion: function(q) {
-        let titleDiv = document.getElementById("title");
+        let titleDiv = document.getElementById(`title`);
 
         titleDiv.textContent = q.title;
 
-        let alts = document.querySelectorAll(".alternative");
+        let alts = document.querySelectorAll(`.alternative`);
 
         alts.forEach(function(element, index) {
             element.textContent = q.alternative[index];
@@ -57,10 +65,13 @@ let app = {
     checkAnswer: function(userSelection) {
         let currentQuestion = questions[this.currentPosition];
         if (currentQuestion.correctAnswer == userSelection) {
-            alert("Correct!");
+            this.score++;
+            this.showResult(true);
         } else {
-            alert("Wrong!");
+            this.showResult(false);
         }
+
+        this.updateStats();
 
         this.increasePosition();
         this.showQuestion(questions[this.currentPosition]);
@@ -72,6 +83,32 @@ let app = {
         if (this.currentPosition == questions.length) {
             this.currentPosition = 0;
         }
+    },
+    updateStats: function() {
+        let scoreDiv = document.getElementById(`score`);
+        scoreDiv.textContent = `Your score: ${this.score}`;
+    },
+
+    showResult: function(isCorrect) {
+        let resultDiv = document.getElementById("result");
+        let result = ``;
+
+        //checks
+        if (isCorrect) {
+            result = `Correct Answer!`;
+        } else {
+            //get the Current Question
+            let currentQuestion = questions[this.currentPosition];
+
+            //Get correct answer (index)
+            let correctAnswerIndex = currentQuestion.correctAnswer;
+
+            //Get correct answer(etxt)
+            let currentAnswerText = currentQuestion.alternative[correctAnswerIndex];
+
+            result = `Wrong Answer! Correct answer: ${currentAnswerText}`;
+        }
+        resultDiv.textContent = result;
     },
 };
 
