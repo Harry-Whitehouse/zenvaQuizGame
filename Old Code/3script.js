@@ -1,3 +1,5 @@
+let question = {};
+
 let questions = [{
         title: "What is the name of a 30L bottle of wine?",
         alternative: ["Magnum", "Mechizedek", "Nabuchadnezzar", "Salmanazar"],
@@ -40,9 +42,27 @@ let app = {
             });
         });
 
+        //.bind allows to pass on the value of .this
+        // however, arrow functions do the same job and are much neater
+
+        // alts.forEach(
+        //     function(element, index) {
+        //         element.addEventListener(
+        //             "click",
+        //             function() {
+        //                 this.checkAnswer(index);
+        //             }.bind(this)
+        //         );
+        //     }.bind(this)
+        // );
+
         this.showQuestion(questions[this.currentPosition]);
     },
     showQuestion: function(q) {
+        //keep track of the current question
+
+        this.currentQuestion = q;
+
         let titleDiv = document.getElementById("title");
 
         titleDiv.textContent = q.title;
@@ -55,14 +75,15 @@ let app = {
     },
 
     checkAnswer: function(userSelection) {
-        let currentQuestion = questions[this.currentPosition];
-        if (currentQuestion.correctAnswer == userSelection) {
+        if (this.currentQuestion.correctAnswer == userSelection) {
             alert("Correct!");
         } else {
             alert("Wrong!");
         }
 
+        //increase position
         this.increasePosition();
+        //show next question
         this.showQuestion(questions[this.currentPosition]);
     },
 
@@ -76,3 +97,6 @@ let app = {
 };
 
 app.start();
+
+/*refactored some more using methods to make 
+the structure neater.*/
