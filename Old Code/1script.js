@@ -25,9 +25,9 @@ function showQuestion(q) {
         element.addEventListener("click", function() {
             //check correct answer
             if (q.correctAnswer == index) {
-                console.log("Correct Answer!");
+                alert("Correct Answer!");
             } else {
-                console.log("Incorrect!");
+                alert("Incorrect!");
             }
         });
     });
@@ -35,8 +35,8 @@ function showQuestion(q) {
 
 showQuestion(question);
 
-let btn = document.getElementById("btn");
+// let btn = document.getElementById("btn");
 
-btn.addEventListener("click", function() {
-    console.log("Clicked!");
-});
+// btn.addEventListener("click", function() {
+//     console.log("Clicked!");
+// });
