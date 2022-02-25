@@ -1,3 +1,12 @@
+let PlayerName = document.getElementById("playerName");
+PlayerName.addEventListener("click", updateName);
+// let name = {};
+
+function updateName() {
+    let name = prompt("Enter player name.");
+    PlayerName.textContent = `Player 1: ${name}`;
+}
+
 let questions = [{
         title: "What is the name of a 30L bottle of wine?",
         alternative: ["Magnum", "Mechizedek", "Nabuchadnezzar", "Salmanazar"],
@@ -86,7 +95,7 @@ let app = {
     },
     updateStats: function() {
         let scoreDiv = document.getElementById(`score`);
-        scoreDiv.textContent = `Your score: ${this.score}`;
+        scoreDiv.textContent = `${name} score: ${this.score}`;
     },
 
     showResult: function(isCorrect) {
@@ -113,3 +122,4 @@ let app = {
 };
 
 app.start();
+updateName();
